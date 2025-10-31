@@ -108,31 +108,83 @@ window.addEventListener('resize', () => {
 });
 
 
-    // Obtener elementos
-    const modal = document.getElementById('modalQueHago');
-    const btn = document.getElementById('btnQueHago');
-    const closeBtn = document.querySelector('.close');
+  // Obtener elementos
+  const modalQueHago = document.getElementById('modalQueHago');
+  const modalComoHago = document.getElementById('modalComoHago');
+  const modalContacto = document.getElementById('modalContacto');
+  const modalProyectos = document.getElementById('modalProyectos');
+  
+  const btnQueHago = document.getElementById('btnQueHago');
+  const btnComoHago = document.getElementById('btnComoHago');
+  const btnContacto = document.querySelector('.icon-btn[title="Contacto"]');
+  const btnProyectos = document.querySelector('.icon-btn[title="Proyectos"]');
+  
+  const closeBtns = document.querySelectorAll('.close, .close-como, .close-contacto, .close-proyectos');
 
-    // Abrir modal
+  // Abrir modales
+  btnQueHago.addEventListener('click', () => modalQueHago.style.display = 'block');
+  btnComoHago.addEventListener('click', () => modalComoHago.style.display = 'block');
+  btnContacto.addEventListener('click', () => modalContacto.style.display = 'block');
+  btnProyectos.addEventListener('click', () => modalProyectos.style.display = 'block');
+
+  // Cerrar modales con X
+  closeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      modal.style.display = 'block';
+      modalQueHago.style.display = 'none';
+      modalComoHago.style.display = 'none';
+      modalContacto.style.display = 'none';
+      modalProyectos.style.display = 'none';
     });
+  });
 
-    // Cerrar modal con X
-    closeBtn.addEventListener('click', () => {
-      modal.style.display = 'none';
-    });
+  // Cerrar modal al hacer click fuera
+  window.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal')) {
+      e.target.style.display = 'none';
+    }
+  });
 
-    // Cerrar modal al hacer click fuera
-    window.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.style.display = 'none';
-      }
-    });
+  // Cerrar con ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      modalQueHago.style.display = 'none';
+      modalComoHago.style.display = 'none';
+      modalContacto.style.display = 'none';
+      modalProyectos.style.display = 'none';
+    }
+  });
 
-    // Cerrar con ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.style.display === 'block') {
-        modal.style.display = 'none';
-      }
+  // CARRUSEL
+  const slides = [
+    {img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800', caption: 'Proyecto 1 - Dashboard Analytics'},
+    {img: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800', caption: 'Proyecto 2 - E-commerce Platform'},
+    {img: 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=800', caption: 'Proyecto 3 - Sistema de Gestión'}
+  ];
+  
+  let currentSlide = 0;
+  
+  function showSlide(n) {
+    const slideContainer = document.querySelector('.carousel-slide');
+    const dots = document.querySelectorAll('.dot');
+    
+    currentSlide = (n + slides.length) % slides.length;
+    
+    slideContainer.innerHTML = `
+      <img src="${slides[currentSlide].img}" alt="Proyecto ${currentSlide + 1}">
+      <div class="carousel-caption">${slides[currentSlide].caption}</div>
+    `;
+    
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === currentSlide);
     });
+  }
+  
+  document.querySelector('.carousel-btn.prev').addEventListener('click', () => showSlide(currentSlide - 1));
+  document.querySelector('.carousel-btn.next').addEventListener('click', () => showSlide(currentSlide + 1));
+  
+  document.querySelectorAll('.dot').forEach((dot, i) => {
+    dot.addEventListener('click', () => showSlide(i));
+  });
+  
+  // Inicializar carrusel
+  showSlide(0);
