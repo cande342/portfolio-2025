@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portafolio – Candela Azul Echazú</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Fuentes profesionales -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+   :root {
+  --fondo-principal: linear-gradient(135deg, #FFE0D6 0%, #FFD1E1 50%, #FFC0F0 100%);
+  --lavanda-claro: #a689e1;
+  --texto-principal: #4A3A55;
+  --texto-secundario: #6b5a73;
+  --rosa-pastel: #fcc0ea;
+  --rosa-hover: #f3b4e3;
+  --borde-icono: #a689e1;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--fondo-principal);
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px;
+  box-sizing: border-box;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Contenedor principal */
+.main-container {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  position: relative;
+  z-index: 1;
+}
+
+    .text-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+      max-width: 600px;
+    }
+
+h1 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 2.8rem;
+  color: #5A3E85; /* lavanda oscuro/violeta ahumado */
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: 0.5px;
+}
+
+h2 {
+  font-weight: 500;
+  font-size: 1.4rem;
+  margin: 0;
+  color: #A687C2; /* lavanda más claro */
+}
+
+p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #555555; /* gris oscuro suave */
+  max-width: 90%;
+}
+
+button {
+  padding: 12px 24px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  background-color: #F5C0E0; /* rosa pastel suave */
+  color: #333333; 
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(245, 192, 224, 0.4);
+}
+
+button:hover {
+  background-color: #EBA5D6; /* rosa un poco más brillante */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(235, 165, 214, 0.5);
+}
+
+
+    /* Icon buttons (contacto y proyectos) */
+.icon-buttons {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 25px;
+  z-index: 2;
+}
+
+.icon-btn {
+  background: #FFFFFF; /* fondo blanco limpio */
+  border: 2px solid #A687C2; /* lavanda suave */
+  color: #A687C2;
+  border-radius: 50%;
+  width: 70px; /* ligeramente más grande */
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(166, 135, 194, 0.3);
+}
+
+.icon-btn:hover {
+  background-color: #A687C2; /* lavanda de hover */
+  color: #FFFFFF;
+  transform: translateY(-5px) scale(1.1); /* levitación sutil + zoom */
+  box-shadow: 0 0 20px rgba(166, 135, 194, 0.6); /* glow suave */
+}
+
+
+    @media (max-width: 900px) {
+      body {
+        padding: 30px;
+      }
+      .main-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      canvas {
+        width: 100%;
+      }
+      .icon-buttons {
+        bottom: 25px;
+      }
+    }
+  /* MODAL STYLES */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(90, 62, 133, 0.3);
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFF5FB 100%);
+  margin: 8% auto;
+  padding: 40px;
+  border-radius: 25px;
+  width: 85%;
+  max-width: 700px;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(166, 135, 194, 0.4);
+  border: 2px solid rgba(166, 135, 194, 0.3);
+  animation: slideDown 0.4s ease;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.close {
+  position: absolute;
+  right: 25px;
+  top: 20px;
+  font-size: 32px;
+  font-weight: bold;
+  color: #A687C2;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.close:hover {
+  color: #5A3E85;
+  transform: rotate(90deg);
+}
+
+.modal-content h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  color: #5A3E85;
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+
+.process-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(245, 192, 224, 0.15);
+  border-radius: 15px;
+  border-left: 4px solid #A687C2;
+  transition: all 0.3s ease;
+}
+
+.step:hover {
+  background: rgba(245, 192, 224, 0.25);
+  transform: translateX(5px);
+}
+
+.step-number {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #A687C2;
+  min-width: 60px;
+  text-align: center;
+  line-height: 1;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-content h4 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  color: #5A3E85;
+  margin: 0 0 8px 0;
+}
+
+.step-content p {
+  font-size: 0.95rem;
+  color: #555555;
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  body {
+    padding: 30px;
+  }
+  .main-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .icon-buttons {
+    bottom: 25px;
+  }
+  .modal-content {
+    width: 90%;
+    padding: 30px 20px;
+    margin: 15% auto;
+  }
+  .step {
+    flex-direction: column;
+    text-align: center;
+  }
+  .step-number {
+    font-size: 2rem;
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <div class="text-container">
+      <h1>CANDELA AZUL, ECHAZÚ</h1>
+      <h2>Desarrollo de páginas y aplicaciones Web</h2>
+      <p>
+        Tengo experiencia en el desarrollo de aplicaciones backoffice y servicios de gestión pública (Angular +16). Me especializo en tomar requerimientos, implementar diseños pixel perfect y optimizar procesos para entregar productos eficientes, visualmente cuidados y con buenas prácticas. También trabajo de forma autónoma, adaptándome a cada proyecto con foco en la calidad y la experiencia del usuario.
+      </p>
+
+      <div class="buttons-container">
+        <button id="btnQueHago">¿Qué hago?</button>
+        <button>¿Cómo lo hago?</button>
+      </div>
+    </div>
+
+    <canvas id="flowerCanvas"></canvas>
+  </div>
+
+  <!-- Botones inferiores -->
+  <div class="icon-buttons">
+    <button class="icon-btn" title="Contacto">
+      <i class="fas fa-envelope"></i>
+    </button>
+    <button class="icon-btn" title="Proyectos">
+      <i class="fas fa-images"></i>
+    </button>
+  </div>
+
+   <!-- MODAL -->
+  <div id="modalQueHago" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>Mi Proceso de Trabajo</h3>
+      
+      <div class="process-steps">
+        <div class="step">
+          <div class="step-number">I</div>
+          <div class="step-content">
+            <h4>Análisis y Optimización</h4>
+            <p>Toma de requerimientos y evaluación de procesos para optimización</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">II</div>
+          <div class="step-content">
+            <h4>Diseño UX/UI</h4>
+            <p>Diseño o rediseño de la página usando Figma y los principios de UI/UX</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">III</div>
+          <div class="step-content">
+            <h4>Desarrollo y Despliegue</h4>
+            <p>Desarrollo y despliegue de la aplicación ya sea en la nube o local</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
