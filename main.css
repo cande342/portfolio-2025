@@ -133,6 +133,7 @@ button:hover {
   background-color: rgba(90, 62, 133, 0.3);
   backdrop-filter: blur(8px);
   animation: fadeIn 0.3s ease;
+  overflow-y: auto; 
 }
 
 @keyframes fadeIn {
@@ -436,7 +437,11 @@ button:hover {
   height: 280px;
   object-fit: cover;
   border-radius: 10px;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
+
 
 .carousel-caption {
   margin-top: 10px;
@@ -499,6 +504,35 @@ button:hover {
 .dot:hover {
   background: #5A3E85;
 }
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 110%; /* arriba de la imagen */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
 
 /* RESPONSIVE - UN SOLO BLOQUE */
 @media (max-width: 900px) {

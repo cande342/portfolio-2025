@@ -156,28 +156,28 @@ window.addEventListener('resize', () => {
 
   // CARRUSEL
   const slides = [
-    {img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800', caption: 'Proyecto 1 - Dashboard Analytics'},
-    {img: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800', caption: 'Proyecto 2 - E-commerce Platform'},
-    {img: 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=800', caption: 'Proyecto 3 - Sistema de Gestión'}
+    { img: '/galeria/gestion.png', caption: 'Proyecto 1 - Gestión de fletes' },
+    {img: '/galeria/fotoprueba.jpg', caption: 'Proyecto 2 - Conectar pasarela de pagos'},
+    {img: '/galeria/juegos.jpg', caption: 'Proyecto 3 - Diseño de plataforma de juegos'},
   ];
   
   let currentSlide = 0;
   
   function showSlide(n) {
-    const slideContainer = document.querySelector('.carousel-slide');
+    const slidesElems = document.querySelectorAll('.carousel-slide');
     const dots = document.querySelectorAll('.dot');
-    
-    currentSlide = (n + slides.length) % slides.length;
-    
-    slideContainer.innerHTML = `
-      <img src="${slides[currentSlide].img}" alt="Proyecto ${currentSlide + 1}">
-      <div class="carousel-caption">${slides[currentSlide].caption}</div>
-    `;
-    
+
+    currentSlide = (n + slidesElems.length) % slidesElems.length;
+
+    slidesElems.forEach((slide, i) => {
+      slide.classList.toggle('active', i === currentSlide);
+    });
+
     dots.forEach((dot, i) => {
       dot.classList.toggle('active', i === currentSlide);
     });
   }
+
   
   document.querySelector('.carousel-btn.prev').addEventListener('click', () => showSlide(currentSlide - 1));
   document.querySelector('.carousel-btn.next').addEventListener('click', () => showSlide(currentSlide + 1));
